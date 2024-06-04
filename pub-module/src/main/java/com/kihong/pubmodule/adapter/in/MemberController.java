@@ -4,9 +4,7 @@ import com.kihong.pubmodule.application.EmployeeService;
 import com.kihong.pubmodule.domain.EmployeeCreate;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequiredArgsConstructor
@@ -22,6 +20,12 @@ public class MemberController {
         return ResponseEntity.ok("직원 저장 성공");
     }
 
+    @GetMapping("/employee/{name}")
+    public ResponseEntity<String> get(@PathVariable String name) {
+
+
+
+    }
 
 
 }
