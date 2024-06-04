@@ -1,0 +1,23 @@
+spring:
+  application:
+    name: sub-module
+
+server:
+  port: 8081
+---
+spring:
+  data:
+    mongodb:
+      uri: mongodb://root:example@localhost:27017/my_database
+      username: root
+      password: 1234
+
+---
+spring:
+  kafka:
+    bootstrap-servers: localhost:9092
+    consumer:
+      group-id: test
+      auto-offset-reset: earliest
+      key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+      value-deserializer: org.apache.kafka.common.serialization.StringDeserializer

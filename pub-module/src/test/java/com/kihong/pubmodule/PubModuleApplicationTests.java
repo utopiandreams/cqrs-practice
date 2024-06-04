@@ -1,10 +1,10 @@
-package io.spring.kafka_cqrs;
+package com.kihong.pubmodule;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class KafkaCqrsApplicationTests {
+class PubModuleApplicationTests {
 
     @Test
     void contextLoads() {

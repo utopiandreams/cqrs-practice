@@ -1,13 +1,13 @@
-package io.spring.kafka_cqrs;
+package com.kihong.pubmodule;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class KafkaCqrsApplication {
+public class PubModuleApplication {
 
     public static void main(String[] args) {
-        SpringApplication.run(KafkaCqrsApplication.class, args);
+        SpringApplication.run(PubModuleApplication.class, args);
     }
 
 }
