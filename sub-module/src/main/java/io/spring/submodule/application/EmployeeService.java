@@ -3,7 +3,6 @@ package io.spring.submodule.application;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import io.spring.submodule.adapter.out.EmployeeRepository;
 import io.spring.submodule.application.port.EmployeeCommand;
 import io.spring.submodule.domain.EmployeeDocument;
 import lombok.RequiredArgsConstructor;

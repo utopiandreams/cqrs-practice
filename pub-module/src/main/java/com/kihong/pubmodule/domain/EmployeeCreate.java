@@ -1,6 +1,6 @@
 package com.kihong.pubmodule.domain;
 
-public record EmployeeCreate(
+public record EmployeeCreate (
         String name,
         String department
 ) {

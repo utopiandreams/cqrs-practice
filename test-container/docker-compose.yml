@@ -47,7 +47,7 @@ services:
       - MYSQL_ROOT_PASSWORD=1234
       - MYSQL_DATABASE=test
     ports:
-      - 3306:3306
+      - "3306:3306"
 
   mongodb:
     container_name: mongodb
@@ -57,4 +57,3 @@ services:
     environment:
       - MONGO_INITDB_ROOT_USERNAME=root
       - MONGO_INITDB_ROOT_PASSWORD=1234
-      - MONGO_INITDB_DATABASE=my_database
