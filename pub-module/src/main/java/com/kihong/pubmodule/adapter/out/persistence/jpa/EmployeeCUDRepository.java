@@ -1,4 +1,4 @@
-package com.kihong.pubmodule.adapter.out.persistence;
+package com.kihong.pubmodule.adapter.out.persistence.jpa;
 
 import com.kihong.pubmodule.application.port.EmployeeCommand;
 import com.kihong.pubmodule.domain.Employee;
@@ -7,7 +7,7 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 @RequiredArgsConstructor
-public class EmployeeRepository implements EmployeeCommand {
+public class EmployeeCUDRepository implements EmployeeCommand {
 
     private final EmployeeJpaRepository employeeJpaRepository;
 

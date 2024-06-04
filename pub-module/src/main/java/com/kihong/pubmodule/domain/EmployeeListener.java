@@ -1,7 +1,7 @@
 package com.kihong.pubmodule.domain;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
-import com.kihong.pubmodule.adapter.out.persistence.KafkaMessageProducer;
+import com.kihong.pubmodule.config.KafkaMessageProducer;
 import jakarta.persistence.PostUpdate;
 import jakarta.persistence.PrePersist;
 import jakarta.persistence.PreRemove;

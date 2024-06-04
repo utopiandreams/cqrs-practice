@@ -1,7 +1,11 @@
 package com.kihong.pubmodule.application.port;
 
+import com.kihong.pubmodule.domain.Employee;
+
+import java.util.List;
+
 public interface EmployeeQuery {
 
-    Optional<Employee> findByName(String name);
+    List<Employee> findByName(String name);
 
 }

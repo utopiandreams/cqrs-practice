@@ -1,10 +1,13 @@
 package com.kihong.pubmodule.adapter.in;
 
 import com.kihong.pubmodule.application.EmployeeService;
+import com.kihong.pubmodule.domain.Employee;
 import com.kihong.pubmodule.domain.EmployeeCreate;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
@@ -22,9 +25,8 @@ public class MemberController {
 
     @GetMapping("/employee/{name}")
     public ResponseEntity<String> get(@PathVariable String name) {
-
-
-
+        List<Employee> employeeList = employeeService.find(name);
+        return ResponseEntity.ok(employeeList.toString());
     }
 
 

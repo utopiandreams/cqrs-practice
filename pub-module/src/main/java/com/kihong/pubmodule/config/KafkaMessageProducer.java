@@ -1,4 +1,4 @@
-package com.kihong.pubmodule.adapter.out.persistence;
+package com.kihong.pubmodule.config;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;

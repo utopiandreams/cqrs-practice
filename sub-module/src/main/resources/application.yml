@@ -6,6 +6,12 @@ server:
   port: 8081
 ---
 spring:
+  application:
+    admin:
+      enabled:
+
+---
+spring:
   data:
     mongodb:
       uri: mongodb://root:1234@localhost:27017/my_database
