@@ -4,6 +4,6 @@ import com.kihong.pubmodule.domain.Employee;
 
 public interface EmployeeCommand {
 
-    void save(Employee employee);
+    Long save(Employee employee);
 
 }

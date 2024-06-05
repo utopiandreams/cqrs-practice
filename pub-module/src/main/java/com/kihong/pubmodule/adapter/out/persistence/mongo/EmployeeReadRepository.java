@@ -5,7 +5,7 @@ import com.kihong.pubmodule.domain.Employee;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 
-import java.util.List;
+import java.util.Optional;
 
 @Repository
 @RequiredArgsConstructor
@@ -13,10 +13,9 @@ public class EmployeeReadRepository implements EmployeeQuery {
 
     private final EmployeeMongoRepository employeeMongoRepository;
 
+
     @Override
-    public List<Employee> findByName(String name) {
-
-        return employeeMongoRepository.findByName(name);
-
+    public Optional<Employee> findById(Long id) {
+        return employeeMongoRepository.findById(id.toString());
     }
 }
