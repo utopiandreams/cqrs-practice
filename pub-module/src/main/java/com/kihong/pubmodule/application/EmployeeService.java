@@ -8,8 +8,6 @@ import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
-
 @Service
 @RequiredArgsConstructor
 public class EmployeeService {
@@ -18,13 +16,13 @@ public class EmployeeService {
     private final EmployeeQuery employeeQuery;
 
     @Transactional
-    public void create(EmployeeCreate employeeCreate) {
+    public Long create(EmployeeCreate employeeCreate) {
         Employee newEmployee = Employee.create(employeeCreate);
-        employeeCommand.save(newEmployee);
+        return employeeCommand.save(newEmployee);
     }
 
-    public List<Employee> find(String name) {
-        return employeeQuery.findByName(name);
+    public Employee getById(Long id) {
+        return employeeQuery.findById(id).orElseThrow(() -> new RuntimeException("찾기 실패"));
     }
 
 

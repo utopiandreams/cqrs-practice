@@ -7,8 +7,6 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
-
 @RestController
 @RequiredArgsConstructor
 public class MemberController {
@@ -18,15 +16,15 @@ public class MemberController {
     @PostMapping("/employee")
     public ResponseEntity<String> save(@RequestBody EmployeeCreate employeeCreate) {
 
-        employeeService.create(employeeCreate);
+        Long id = employeeService.create(employeeCreate);
 
-        return ResponseEntity.ok("직원 저장 성공");
+        return ResponseEntity.ok(id.toString());
     }
 
-    @GetMapping("/employee/{name}")
-    public ResponseEntity<String> get(@PathVariable String name) {
-        List<Employee> employeeList = employeeService.find(name);
-        return ResponseEntity.ok(employeeList.toString());
+    @GetMapping("/employee/{id}")
+    public ResponseEntity<Employee> getById(@PathVariable Long id) {
+        Employee employee = employeeService.getById(id);
+        return ResponseEntity.ok(employee);
     }
 
 

@@ -12,8 +12,10 @@ public class EmployeeCUDRepository implements EmployeeCommand {
     private final EmployeeJpaRepository employeeJpaRepository;
 
     @Override
-    public void save(Employee employee) {
-        employeeJpaRepository.save(employee);
+    public Long save(Employee employee) {
+        Employee saved = employeeJpaRepository.save(employee);
+        employeeJpaRepository.flush();
+        return saved.getId();
     }
 
 }
