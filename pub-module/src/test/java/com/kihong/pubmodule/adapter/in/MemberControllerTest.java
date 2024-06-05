@@ -1,6 +1,8 @@
 package com.kihong.pubmodule.adapter.in;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.kihong.pubmodule.adapter.out.persistence.jpa.EventJpaRepository;
+import com.kihong.pubmodule.adapter.out.persistence.jpa.EventRecordEntity;
 import com.kihong.pubmodule.domain.EmployeeCreate;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -10,9 +12,11 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
-import org.springframework.test.web.servlet.result.MockMvcResultHandlers;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 
+import java.util.Optional;
+
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
@@ -26,6 +30,8 @@ class MemberControllerTest {
     MockMvc mockMvc;
     @Autowired
     ObjectMapper objectMapper;
+    @Autowired
+    EventJpaRepository eventJpaRepository;
 
     @BeforeEach
     void setup(){
@@ -51,10 +57,11 @@ class MemberControllerTest {
         mockMvc.perform(get("/employee/" + id))
                 .andExpect(status().isOk())
                 .andExpect(MockMvcResultMatchers.jsonPath("$.name").value("김기홍"))
-                .andExpect(jsonPath("$.department").value("FT2-3"))
-                .andDo(MockMvcResultHandlers.print());
+                .andExpect(jsonPath("$.department").value("FT2-3"));
+
+        Optional<EventRecordEntity> latest = eventJpaRepository.findLatest();
+        assertThat(latest.isPresent()).isTrue();
+        assertThat(latest.get().getIsPublished()).isEqualTo("Y");
     }
-
-
 
 }

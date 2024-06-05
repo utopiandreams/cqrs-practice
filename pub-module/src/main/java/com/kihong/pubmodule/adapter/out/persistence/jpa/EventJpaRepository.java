@@ -11,4 +11,7 @@ public interface EventJpaRepository extends JpaRepository<EventRecordEntity, Lon
     @Query("select e from EventRecordEntity e where e.transactionId = :transactionId and e.isPublished = 'N'")
     Optional<EventRecordEntity> findByTransactionId(@Param("transactionId") String transactionId);
 
+    @Query("select e from EventRecordEntity e ORDER BY e.createdAt desc limit 1")
+    Optional<EventRecordEntity> findLatest();
+
 }
