@@ -1,15 +1,17 @@
 package com.kihong.pubmodule.domain;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Getter;
+import lombok.*;
 
 @Getter
 @AllArgsConstructor
+@NoArgsConstructor
 @Builder
-public class KafkaMessage<T> {
+@ToString(exclude = {"data"})
+public class KafkaMessage {
+    private String id;
     private String eventType;
     private String entityType;
     private String entityId;
-    private T data;
+    private Long createAt;
+    private String data;
 }

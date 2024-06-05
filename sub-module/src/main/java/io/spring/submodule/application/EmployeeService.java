@@ -1,7 +1,6 @@
 package io.spring.submodule.application;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import io.spring.submodule.application.port.EmployeeCommand;
 import io.spring.submodule.domain.EmployeeDocument;
@@ -19,8 +18,8 @@ public class EmployeeService {
 
     public void save(String employeeRecord) {
         try {
-            JsonNode dataNode = objectMapper.readTree(employeeRecord).get("data");
-            EmployeeDocument employeeDocument = objectMapper.treeToValue(dataNode, EmployeeDocument.class);
+            String data = objectMapper.readTree(employeeRecord).get("data").asText();
+            EmployeeDocument employeeDocument = objectMapper.readValue(data, EmployeeDocument.class);
             employeeCommand.sync(employeeDocument);
         } catch (JsonProcessingException ignore) {
             log.error("Failed to parse employee record : {}", employeeRecord);

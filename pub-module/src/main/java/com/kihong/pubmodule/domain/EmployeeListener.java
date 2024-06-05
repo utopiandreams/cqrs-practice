@@ -1,53 +1,50 @@
 package com.kihong.pubmodule.domain;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
-import com.kihong.pubmodule.config.KafkaMessageProducer;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.kihong.pubmodule.config.EventPublisher;
 import jakarta.persistence.PostUpdate;
 import jakarta.persistence.PrePersist;
 import jakarta.persistence.PreRemove;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
+import java.time.LocalDateTime;
+import java.util.UUID;
+
 @Component
 @RequiredArgsConstructor
 public class EmployeeListener {
 
-    private final KafkaMessageProducer messageProducer;
+    private final EventPublisher eventPublisher;
+    private final ObjectMapper objectMapper;
 
     @PrePersist
-    public void prePersist(Employee user) throws JsonProcessingException {
-        publishEvent("CREATE", user);
+    public void prePersist(Employee employee) throws JsonProcessingException {
+        eventPublisher.publishEvent(createEvent("CREATE", employee));
     }
 
     @PostUpdate
-    public void postUpdate(Employee user) throws JsonProcessingException {
-        publishEvent("UPDATE", user);
+    public void postUpdate(Employee employee) throws JsonProcessingException {
+        eventPublisher.publishEvent(createEvent("UPDATE", employee));
     }
 
     @PreRemove
-    public void preRemove(Employee user) throws JsonProcessingException {
-        publishEvent("DELETE", user);
+    public void preRemove(Employee employee) throws JsonProcessingException {
+        eventPublisher.publishEvent(createEvent("DELETE", employee));
     }
 
-    /*
-     * 아래 이벤트 발행 과정은 DB 트랜잭션과 묶이기 때문에
-     * 메세지 발행의 결과에 따라 전체 트랜잭션의 성공 여부가 결정되고,
-     * 결국 부가적인 기능이 핵심 기능에 영향을 끼치는 문제를 초래합니다.
-     */
-    private void publishEvent(String eventType, Employee employee) throws JsonProcessingException {
-        KafkaMessage<Employee> kafkaMessage = createMessage(eventType, employee);
-        messageProducer.sendMessage("employee", kafkaMessage);
+    public EventRecord createEvent(String eventType, Employee employee) throws JsonProcessingException {
+        return new EventRecord(
+                this,
+                UUID.randomUUID().toString(),
+                "employee",
+                employee.getId().toString(),
+                eventType,
+                objectMapper.writeValueAsString(employee),
+                LocalDateTime.now(),
+                false
+        );
     }
-
-    private KafkaMessage<Employee> createMessage(String eventType, Employee employee) {
-        return KafkaMessage.<Employee>builder()
-                .eventType(eventType)
-                .entityType("EMPLOYEE")
-                .entityId(employee.getId().toString())
-                .data(employee)
-                .build();
-    }
-
-
 
 }

@@ -27,7 +27,7 @@ public class KafkaMessageProducer {
         objectMapper = new ObjectMapper();
     }
 
-    public <T> void sendMessage(String topic, KafkaMessage<T> kafkaMessage) throws JsonProcessingException {
+    public void sendMessage(String topic, KafkaMessage kafkaMessage) throws JsonProcessingException {
         String value = objectMapper.writeValueAsString(kafkaMessage);
         ProducerRecord<String, String> record = new ProducerRecord<>(topic, kafkaMessage.getEntityId(), value);
         producer.send(record);
