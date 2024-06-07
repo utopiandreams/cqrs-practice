@@ -170,5 +170,9 @@ log.info("AFTER_COMMIT kafkaMessage: {}", kafkaMessage);
 
 그러나 메세지 발행이 실패하는 경우 이벤트의 발행 순서가 바뀌게 될 수 있고, 때문에 순차적으로 소비되는 카프카의 메세지 큐에 순서가 뒤바뀐 채로 메세지가 들어가게 되어 문제가 발생할 여지가 있습니다.
 
-이를 해결하기 위해 데이터베이스의 EventRecord 를 생성 순서에 따라 발행처리하는 메세지 릴레이(debezium) 를 도입할 수 있습니다.
+이를 해결하기 위해 데이터베이스의 EventRecord 를 생성 순서에 따라 발행처리하는 메세지 릴레이(debezium) 를 도입하였습니다.
+
+debezium 은 데이터베이스의 변경 log 를 순차적으로 읽어서 카프카에 메세지를 전달해주는 Kafka Connect 의 구현체입니다. docker container 를 띄운 후,
+curl -X POST -H "Content-Type: application/json" --data @test-container/kafka-connectors/mysql-connector.json http://localhost:8083/connectors
+명령어를 입력하여 mysql 커넥터를 등록하면 지정된 mysql 스키마의 변경사항을 추적하여 카프카 메세지를 발행합니다.
 
