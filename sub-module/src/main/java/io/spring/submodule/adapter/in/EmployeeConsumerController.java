@@ -13,11 +13,14 @@ import org.springframework.stereotype.Controller;
 public class EmployeeConsumerController {
     private final EmployeeService employeeService;
 
-    @KafkaListener(topics = "employee", groupId = "mongo")
+    // 카프카 커넥트(Debezium) 로 부터 발행된 메세지 토픽
+    @KafkaListener(topics = "mysqldb.test.event_record_entity", groupId = "mongo")
     public void listen(ConsumerRecord<String, String> record) {
         log.info("Received record: {}", record);
-        employeeService.save(record.value());
+        employeeService.sycn(record.value());
     }
+
+
 
 
 

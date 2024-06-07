@@ -17,4 +17,9 @@ public class EmployeeDocument {
     private String name;
     private String department;
 
+    public void update(EmployeeDocument employee) {
+        this.name = employee.getName();
+        this.department = employee.getDepartment();
+    }
+
 }

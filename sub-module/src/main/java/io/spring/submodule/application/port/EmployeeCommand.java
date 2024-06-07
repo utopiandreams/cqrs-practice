@@ -4,6 +4,8 @@ import io.spring.submodule.domain.EmployeeDocument;
 
 public interface EmployeeCommand {
 
-    void sync(EmployeeDocument employeeDocument);
+    void save(EmployeeDocument employeeDocument);
+    void update(EmployeeDocument employeeDocument);
+    void delete(EmployeeDocument employeeDocument);
 
 }
